@@ -1,0 +1,6 @@
+VMX1 format and coefficient tables are derived from libvmx and vmx-rs:
+
+  https://github.com/openmediatransport/libvmx (MIT)
+  https://github.com/MikanseiLaboratory/vmx-rs (MIT)
+
+The Go implementation is an independent port. See LICENSE.
