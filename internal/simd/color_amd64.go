@@ -44,4 +44,10 @@ func UYVYToPlanar(src []byte, stride int, y, u, v []byte, ys, us, vs, width, hei
 	return true
 }
 
-func ColorPath() string { return "avx2" }
+// ColorPath reports the kernel that UYVYToPlanar will actually use.
+func ColorPath() string {
+	if archsimd.X86.AVX2() {
+		return "avx2"
+	}
+	return "scalar"
+}
