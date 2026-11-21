@@ -11,9 +11,12 @@ type bitrateConfig struct {
 }
 
 func calculateBitrate(targetMbps int32, minimum bool) int32 {
-	t := float64(targetMbps)
-	t /= 60.0 * 8.0
-	t *= 1048576.0
+	// libvmx uses a 32-bit float here. Keep float32 so the target byte
+	// thresholds (and therefore the adaptive quality decisions) match the
+	// reference bit-for-bit; float64 rounds some rows one byte higher.
+	t := float32(targetMbps)
+	t /= 60 * 8
+	t *= 1048576
 	if minimum {
 		t *= 0.95
 	} else {

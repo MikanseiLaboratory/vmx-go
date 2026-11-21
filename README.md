@@ -79,6 +79,11 @@ parallelism and the SIMD color kernel are the only optimizations in v0.1.
 - decode comparison against the Rust decoder output
 - SIMD/scalar plane equality
 - roundtrip and boundary tests
+- adaptive-quality sequence parity with libvmx/vmx-rs (float32 bitrate targets)
+
+Validated on Windows 11 amd64 with Go 1.27, both scalar and
+`GOEXPERIMENT=simd`; the encoder/decoder also match the scalar Rust
+implementation for odd widths, non-multiple-of-16 heights, and all profiles.
 
 ## License
 

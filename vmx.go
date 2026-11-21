@@ -284,6 +284,8 @@ func (c *Codec) MaxEncodedSize() int {
 
 func alignUp(v, a int) int { return (v + a - 1) / a * a }
 
+const maxInt = int(^uint(0) >> 1)
+
 func createReciprocal(divisor uint16) [3]uint16 {
 	if divisor == 1 {
 		return [3]uint16{0, 1, 1}
@@ -330,7 +332,7 @@ func (c *Codec) EncodeYUY2(src []byte, stride int) error {
 }
 
 func (c *Codec) validateInput(src []byte, stride, bpp int) error {
-	if stride < c.width*bpp {
+	if stride < c.width*bpp || stride <= 0 || c.height > 0 && stride > maxInt/c.height {
 		return fmt.Errorf("%w: stride %d", ErrInvalidParameters, stride)
 	}
 	if len(src) < stride*c.height {
@@ -340,7 +342,7 @@ func (c *Codec) validateInput(src []byte, stride, bpp int) error {
 }
 
 func (c *Codec) validateOutput(dst []byte, stride, bpp int) error {
-	if stride < c.width*bpp {
+	if stride < c.width*bpp || stride <= 0 || c.height > 0 && stride > maxInt/c.height {
 		return fmt.Errorf("%w: stride %d", ErrInvalidParameters, stride)
 	}
 	need := stride * c.height
