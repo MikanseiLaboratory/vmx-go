@@ -231,6 +231,7 @@ func New(cfg Config) (*Codec, error) {
 func (c *Codec) Size() (int, int)       { return c.width, c.height }
 func (c *Codec) ColorSpace() ColorSpace { return c.colorSpace }
 func (c *Codec) SimdPath() string       { return "scalar" }
+func (c *Codec) ColorSimdPath() string  { return simd.ColorPath() }
 func (c *Codec) Threads() int           { return c.threads }
 func (c *Codec) SetThreads(n int) {
 	if n > 0 {
